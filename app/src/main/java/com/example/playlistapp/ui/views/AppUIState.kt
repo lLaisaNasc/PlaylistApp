@@ -10,7 +10,6 @@ data class AppUIState(
 
     @DrawableRes
     val fabIcon: Int = R.drawable.baseline_audiotrack_24,
-
     @StringRes
     val iconContentDescription: Int = R.string.insert_a_new_song,
 )
