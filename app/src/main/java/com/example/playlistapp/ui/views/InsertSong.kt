@@ -58,12 +58,12 @@ fun InsertSongForm(
     modifier: Modifier = Modifier,
 ) {
     val singerImageList = listOf(
-        R.drawable.estrela_do_rock,
+        R.drawable.cantor_metal,
         R.drawable.cantor_pop,
-        R.drawable.cantor,
+        R.drawable.cantor_rock,
         R.drawable.cantor_sertanejo,
         R.drawable.cantor_samba,
-        R.drawable.cantora,
+        R.drawable.cantora_kpop,
     )
 
     Column(
@@ -119,5 +119,5 @@ fun InsertSongForm(
 @Preview(showBackground = true)
 @Composable
 fun InsertSongPreview() {
-    InsertSongForm(R.drawable.estrela_do_rock, "", "", {}, {}, {})
+    InsertSongForm(R.drawable.cantor_metal, "", "", {}, {}, {})
 }

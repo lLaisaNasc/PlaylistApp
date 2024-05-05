@@ -6,12 +6,12 @@ import com.example.playlistapp.models.Song
 fun createPlaylist(): List<Song> {
 
     val pictures = listOf(
-        R.drawable.estrela_do_rock,
+        R.drawable.cantor_metal,
         R.drawable.cantor_pop,
-        R.drawable.cantor,
+        R.drawable.cantor_rock,
         R.drawable.cantor_sertanejo,
         R.drawable.cantor_samba,
-        R.drawable.cantora,
+        R.drawable.cantora_kpop,
     )
 
     val musics = listOf(
@@ -35,6 +35,20 @@ fun createPlaylist(): List<Song> {
         "Take Me Out" to "Franz Ferdinand",
 
         "Do I Wanna Know?" to "Arctic Monkeys",
+
+        "Bad Romance" to "Lady Gaga",
+
+        "Do Fundo da Grota" to "Baitaca",
+
+        "Livin' On a Prayer" to "Bon Jovi",
+
+        "Yellow" to "Coldplay",
+
+        "Evidências" to "Chitãozinho e Xororó",
+
+        "Na Linha do Tempo" to "Victor e Leo",
+
+        "Cheia de Manias" to "Raça Negra"
     )
 
     val songs = musics.mapIndexed { index, (title, artist) ->

@@ -1,6 +1,7 @@
 package com.example.playlistapp.ui.views
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -66,7 +67,8 @@ fun SongItem(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier
+                .fillMaxWidth()
         ) {
             Image(
                 painter = painterResource(id = song.picture),
