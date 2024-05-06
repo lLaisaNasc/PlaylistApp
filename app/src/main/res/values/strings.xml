@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">PlaylistApp</string>
-    <string name="playlist">Playlist</string>
-    <string name="insert_a_new_song">Insert a new song</string>
-    <string name="confirm">confirm</string>
-    <string name="edit_song">edit song</string>
+    <string name="app_name">PLAYLIST APP</string>
+    <string name="playlist">PLAYLIST</string>
+    <string name="insert_a_new_song">INSERT A NEW SONG</string>
+    <string name="confirm">CONFIRM</string>
+    <string name="edit_song">EDIT SONG</string>
 </resources>

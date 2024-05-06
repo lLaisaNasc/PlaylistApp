@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.example.playlistapp.R
 
 data class InsertFormUIState(
-    @DrawableRes val picture: Int = R.drawable.estrela_do_rock,
+    @DrawableRes val picture: Int = R.drawable.cantor_metal,
     val title: String = "",
     val artist: String = "",
 )
