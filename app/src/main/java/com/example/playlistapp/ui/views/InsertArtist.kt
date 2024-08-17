@@ -32,34 +32,67 @@ import com.example.playlistapp.R
 import com.example.playlistapp.viewmodels.PlaylistViewModel
 
 @Composable
-fun InsertSong(viewModel: PlaylistViewModel, navController: NavController) {
+fun InsertArtist(viewModel: PlaylistViewModel, navController: NavController) {
     BackHandler {
         viewModel.navigateBack(navController = navController)
     }
-    val uiState by viewModel.insertSongUIState.collectAsState()
-    InsertSongForm(
-        songName = uiState.title,
-        onUpdateSongName = viewModel::onTitleChange,
+    val uiState by viewModel.insertArtistUIState.collectAsState()
+    InsertArtistForm(
+        picture = uiState.picture,
+        artistName = uiState.name,
+        onUpdatePicture = viewModel::onPictureChange,
+        onUpdateName = viewModel::onNameChange,
     )
 }
 
 @Composable
-fun InsertSongForm(
-    songName: String,
-    onUpdateSongName: (String) -> Unit,
+fun InsertArtistForm(
+    @DrawableRes picture: Int,
+    artistName: String,
+    onUpdatePicture: (Int) -> Unit,
+    onUpdateName: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val singerImageList = listOf(
+        R.drawable.cantor_metal,
+        R.drawable.cantor_pop,
+        R.drawable.cantor_rock,
+        R.drawable.cantor_sertanejo,
+        R.drawable.cantor_samba,
+        R.drawable.cantora_kpop,
+    )
 
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(8.dp)
     ) {
+        LazyVerticalGrid(columns = GridCells.Fixed(3), modifier = modifier.fillMaxWidth()) {
+            items(singerImageList) { singerImage ->
+                Box(
+                    modifier = modifier
+                        .size(100.dp)
+                        .padding(8.dp)
+                        .background(if (singerImage == picture) Color.LightGray else Color.Transparent),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = singerImage),
+                        contentDescription = null,
+                        modifier = modifier
+                            .size(100.dp)
+                            .clickable {
+                                onUpdatePicture(singerImage)
+                            })
+                }
+            }
+        }
+
         Spacer(modifier = modifier.height(8.dp))
 
         TextField(
-            value = songName,
-            onValueChange = onUpdateSongName,
+            value = artistName,
+            onValueChange = onUpdateName,
             label = { Text(text = "Song name") },
             singleLine = false,
             minLines = 1,
@@ -68,12 +101,11 @@ fun InsertSongForm(
         )
 
         Spacer(modifier = modifier.height(8.dp))
-
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun InsertSongPreview() {
-    InsertSongForm("", {})
+fun InsertArtistPreview() {
+    InsertArtistForm(R.drawable.cantor_metal, "", {}, {})
 }

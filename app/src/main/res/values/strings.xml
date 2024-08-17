@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">PLAYLIST APP</string>
     <string name="playlist">PLAYLIST</string>
-    <string name="insert_a_new_song">INSERT A NEW SONG</string>
     <string name="confirm">CONFIRM</string>
-    <string name="edit_song">EDIT SONG</string>
+    <string name="song_list">Lista de Músicas</string>
+    <string name="insert_song">Inserir novo Música</string>
+    <string name="update_song">Editar Música</string>
+    <string name="artist_list">Lista de Artistas</string>
+    <string name="insert_artist">Inserir novo Artista</string>
+    <string name="update_artist">Editar Artista</string>
 </resources>

@@ -3,6 +3,7 @@ package com.example.playlistapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,8 +32,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.playlistapp.data.createPlaylist
-import com.example.playlistapp.models.Song
 import com.example.playlistapp.ui.theme.PlaylistAppTheme
 import com.example.playlistapp.ui.views.App
 import com.example.playlistapp.ui.views.Playlist
@@ -41,6 +40,7 @@ import com.example.playlistapp.viewmodels.PlaylistViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             PlaylistAppTheme {
                 // A surface container using the 'background' color from the theme
