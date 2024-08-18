@@ -38,9 +38,9 @@ class PlaylistViewModel(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-//    init {
-//        createPlaylist()
-//    }
+    //init {
+    //createPlaylist()
+    //}
 
     private val _appUIState: MutableStateFlow<AppUIState> =
         MutableStateFlow(AppUIState())
@@ -237,15 +237,78 @@ class PlaylistViewModel(
     private var artistToEdit: Artist = Artist()
     private var editArtist: Boolean = false
 
-    fun navigate(navController: NavController) {
+//    fun navigateArtist(navController: NavController) {
+//
+//        //--- verifica se a tela atual é a de read ---
+//        if (_appUIState.value.title == R.string.playlist) {
+//            _appUIState.update { currentState ->
+//                currentState.copy(
+//                    title = R.string.insert_a_new_artist,
+//                    fabIcon = R.drawable.baseline_audiotrack_24,
+//                    iconContentDescription = R.string.confirm
+//                )
+//            }
+//            navController.navigate(AppScreens.InsertSong.name)
+//        } else {
+//            //--- verifica tela update ---
+//            val playlist: MutableList<Song> =
+//                _playlistUIState.value.playlist.toMutableList()
+//            if (editSong) {
+//                val position = playlist.indexOf(songToEdit)
+//                playlist.removeAt(position)
+//                playlist.add(
+//                    position, Song(
+//                        _insertFormUIState.value.picture,
+//                        _insertFormUIState.value.title,
+//                        _insertFormUIState.value.artist
+//                    )
+//                )
+//
+//                songToEdit = Song()
+//                editSong = false
+//
+//            } else {
+//                //--- tela create ---
+//                playlist.add(
+//                    Song(
+//                        picture = _insertFormUIState.value.picture,
+//                        title = _insertFormUIState.value.title,
+//                        artist = _insertFormUIState.value.artist
+//                    )
+//                )
+//            }
+//
+//            // --- mantém a visualização da playlist atualizada ---
+//            _playlistUIState.update { currentState ->
+//                currentState.copy(
+//                    playlist = playlist.toList()
+//                )
+//            }
+//
+//            // --- volta ao padrão ---
+//            _insertFormUIState.update {
+//                InsertFormUIState()
+//            }
+//
+//            _appUIState.update {
+//                AppUIState()
+//            }
+//
+//            // --- navega de volta a tela inicial ---
+//            navController.navigate(AppScreens.Playlist.name) {
+//                popUpTo(AppScreens.Playlist.name) {
+//                    inclusive = true
+//                }
+//            }
+//        }
+//    }
+
+    fun navigateArtist(navController: NavController) {
         when (appUIState.value.title) {
             R.string.artist_list -> navigateToArtistList(navController)
             R.string.insert_artist, R.string.update_artist -> navigateToInsertEditArtist(
                 navController
             )
-
-            R.string.song_list -> navigateToSongList(navController)
-            R.string.insert_song, R.string.update_song -> navigateToInsertEditSong(navController)
             else -> navigateToArtistList(navController)
         }
     }
@@ -275,38 +338,58 @@ class PlaylistViewModel(
     }
 
     private fun navigateToArtistList(navController: NavController) {
-        if (editArtist) {
-            val artist = artistToEdit.copy(
-                name = insertArtistUIState.value.name,
-                picture = insertArtistUIState.value.picture,
-            )
-            viewModelScope.launch {
-                updateArtist(artist)
+        if (_appUIState.value.title == R.string.playlist) {
+            _appUIState.update { currentState ->
+                currentState.copy(
+                    title = R.string.artists,
+                    fabIcon = R.drawable.baseline_audiotrack_24,
+                    iconContentDescription = R.string.confirm
+                )
             }
-            editArtist = false
-            artistToEdit = Artist()
+            navController.navigate(AppScreens.ArtistListScreen.name)
         } else {
-            val artist = artistToEdit.copy(
-                name = insertArtistUIState.value.name,
-                picture = insertArtistUIState.value.picture,
-            )
-            viewModelScope.launch {
-                insertArtist(artist)
+            if (editArtist) {
+                val artist = artistToEdit.copy(
+                    name = insertArtistUIState.value.name,
+                    picture = insertArtistUIState.value.picture,
+                )
+                viewModelScope.launch {
+                    updateArtist(artist)
+                }
+                editArtist = false
+                artistToEdit = Artist()
+            } else {
+                val artist = artistToEdit.copy(
+                    name = insertArtistUIState.value.name,
+                    picture = insertArtistUIState.value.picture,
+                )
+                viewModelScope.launch {
+                    insertArtist(artist)
+                }
+            }
+            _insertArtistUIState.update { currentState ->
+                currentState.copy(
+                    name = "",
+                    picture = R.drawable.cantor_pop
+                )
+            }
+            _appUIState.update { currentState ->
+                currentState.copy(title = R.string.playlist, fabIcon = R.drawable.baseline_add_24)
+            }
+            navController.navigate(AppScreens.ArtistListScreen.name) {
+                popUpTo(AppScreens.ArtistListScreen.name) {
+                    inclusive = true
+                }
             }
         }
-        _insertArtistUIState.update { currentState ->
-            currentState.copy(
-                name = "",
-                picture = R.drawable.cantor_pop
-            )
-        }
-        _appUIState.update { currentState ->
-            currentState.copy(title = R.string.playlist, fabIcon = R.drawable.baseline_add_24)
-        }
-        navController.navigate("artist_list") {
-            popUpTo("artist_list") {
-                inclusive = true
-            }
+
+    }
+
+    fun navigateSong(navController: NavController) {
+        when (appUIState.value.title) {
+            R.string.song_list -> navigateToSongList(navController)
+            R.string.insert_song, R.string.update_song -> navigateToInsertEditSong(navController)
+            else -> navigateToSongList(navController)
         }
     }
 
@@ -335,36 +418,49 @@ class PlaylistViewModel(
     }
 
     private fun navigateToSongList(navController: NavController) {
-        if (editSong) {
-            val song = songToEdit.copy(
-                title = insertSongUIState.value.title,
-            )
-            viewModelScope.launch {
-                updateSong(song)
+        if (_appUIState.value.title == R.string.playlist) {
+            _appUIState.update { currentState ->
+                currentState.copy(
+                    title = R.string.songs,
+                    fabIcon = R.drawable.baseline_audiotrack_24,
+                    iconContentDescription = R.string.confirm
+                )
             }
-            editSong = false
-            songToEdit = Song()
+            navController.navigate(AppScreens.SongListScreen.name)
         } else {
-            val song = songToEdit.copy(
-                title = insertSongUIState.value.title,
-            )
-            viewModelScope.launch {
-                insertSong(song)
+            if (editSong) {
+                val song = songToEdit.copy(
+                    title = insertSongUIState.value.title,
+                )
+                viewModelScope.launch {
+                    updateSong(song)
+                }
+                editSong = false
+                songToEdit = Song()
+            } else {
+                val song = songToEdit.copy(
+                    title = insertSongUIState.value.title,
+                )
+                viewModelScope.launch {
+                    insertSong(song)
+                }
+            }
+            _insertSongUIState.update { currentState ->
+                currentState.copy(
+                    title = "",
+                )
+            }
+            _appUIState.update { currentState ->
+                currentState.copy(title = R.string.song_list, fabIcon = R.drawable.baseline_add_24)
+            }
+
+            navController.navigate(AppScreens.SongListScreen.name) {
+                popUpTo(AppScreens.SongListScreen.name) {
+                    inclusive = true
+                }
             }
         }
-        _insertSongUIState.update { currentState ->
-            currentState.copy(
-                title = "",
-            )
-        }
-        _appUIState.update { currentState ->
-            currentState.copy(title = R.string.song_list, fabIcon = R.drawable.baseline_add_24)
-        }
-        navController.navigate("song_list") {
-            popUpTo("song_list") {
-                inclusive = true
-            }
-        }
+
     }
 
     fun navigateBack(navController: NavController) {

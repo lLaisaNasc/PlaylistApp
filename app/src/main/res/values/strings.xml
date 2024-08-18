@@ -8,4 +8,8 @@
     <string name="artist_list">Lista de Artistas</string>
     <string name="insert_artist">Inserir novo Artista</string>
     <string name="update_artist">Editar Artista</string>
+    <string name="insert_a_new_artist">insert artist</string>
+    <string name="artist">artists</string>
+    <string name="artists">ARTISTS</string>
+    <string name="songs">SONGS\n</string>
 </resources>
