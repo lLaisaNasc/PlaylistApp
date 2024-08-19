@@ -1,5 +1,6 @@
 package com.example.playlistapp.ui.views
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -38,6 +39,9 @@ fun ArtistListScreen(
     viewModel: PlaylistViewModel,
     navController: NavController,
 ) {
+    BackHandler {
+        viewModel.navigateBack(navController = navController)
+    }
     val artists by viewModel.artists.collectAsState()
 
     ArtistList(
@@ -46,7 +50,6 @@ fun ArtistListScreen(
         navController = navController,
         artists = artists,
         onArtistSelection = viewModel::selectArtist,
-        showDetails = viewModel::navigateArtist,
     )
 }
 
@@ -57,7 +60,6 @@ fun ArtistList(
     navController: NavController,
     artists: List<Artist>,
     onArtistSelection: (Artist) -> Unit,
-    showDetails: KFunction1<NavController, Unit>,
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         // artists list
@@ -65,9 +67,9 @@ fun ArtistList(
             ArtistItem(
                 modifier = modifier,
                 navController = navController,
+                viewModel = viewModel,
                 artist = artist,
                 onArtistSelection = onArtistSelection,
-                onArtistClick = showDetails,
                 onDelete = viewModel::deleteArtist,
             )
         }
@@ -82,18 +84,21 @@ fun ArtistList(
 @Composable
 fun ArtistItem(
     modifier: Modifier = Modifier,
+    viewModel: PlaylistViewModel,
     navController: NavController,
     artist: Artist,
     onArtistSelection: (Artist) -> Unit,
-    onArtistClick: KFunction1<NavController, Unit>,
     onDelete: (Artist) -> Unit,
 ) {
     Card(modifier = modifier
         .fillMaxWidth()
         .padding(2.dp)
         .clickable {
-            onArtistSelection(artist)
-            onArtistClick(navController)
+//            onArtistSelection(artist)
+//            viewModel.editArtist(artist)
+//            viewModel.navigateArtist(navController)
+            viewModel.selectArtist(artist)
+            viewModel.navigateArtistDetails(navController = navController)
 
         }) {
         Row(
