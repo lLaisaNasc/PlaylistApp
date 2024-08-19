@@ -1,5 +1,6 @@
 package com.example.playlistapp.ui.views
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -28,6 +29,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.playlistapp.R
 import com.example.playlistapp.models.Song
+import com.example.playlistapp.models.SongWithArtists
 import com.example.playlistapp.viewmodels.PlaylistViewModel
 import kotlin.reflect.KFunction1
 
@@ -37,6 +39,9 @@ fun SongListScreen(
     viewModel: PlaylistViewModel,
     navController: NavController,
 ) {
+    BackHandler {
+        viewModel.navigateBack(navController = navController)
+    }
 
     val songs by viewModel.songs.collectAsState()
 

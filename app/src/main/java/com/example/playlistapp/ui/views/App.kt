@@ -46,7 +46,6 @@ fun App(modifier: Modifier = Modifier) {
     val uiState by viewModel.appUIState.collectAsState()
 
     val songWithArtists by viewModel.songWithArtists.collectAsState()
-    val artistWithSongs by viewModel.artistWithSongs.collectAsState()
 
     Scaffold(
         topBar = {
@@ -94,7 +93,7 @@ fun App(modifier: Modifier = Modifier) {
             }
             composable(route = AppScreens.ArtistDetailsScreen.name) {
                 ArtistDetailsScreen(
-                    artistWithSongs = artistWithSongs, viewModel = viewModel,
+                    viewModel = viewModel,
                     navController = navController,
                 )
             }
@@ -142,8 +141,10 @@ fun ArtistDetailsScreen(
     modifier: Modifier = Modifier,
     viewModel: PlaylistViewModel,
     navController: NavController,
-    artistWithSongs: ArtistWithSongs,
 ) {
+
+    val artistWithSongs by viewModel.artistWithSongs.collectAsState()
+
     Column(modifier = Modifier.fillMaxSize()) {
         //-- colocar junto a picture do artista e as musicas dele--
         Text(text = artistWithSongs.artist.name)
