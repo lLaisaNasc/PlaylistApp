@@ -35,10 +35,9 @@ import kotlin.reflect.KFunction1
 @Composable
 fun ArtistListScreen(
     modifier: Modifier = Modifier,
+    viewModel: PlaylistViewModel,
     navController: NavController,
 ) {
-    val viewModel: PlaylistViewModel = viewModel(factory = PlaylistViewModel.Factory)
-
     val artists by viewModel.artists.collectAsState()
 
     ArtistList(
@@ -61,23 +60,6 @@ fun ArtistList(
     showDetails: KFunction1<NavController, Unit>,
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        // artists title
-        item {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-            ) {
-                Text(
-                    text = "ARTISTS".uppercase(),
-                    modifier = Modifier.align(Alignment.Center),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 25.sp,
-                    color = Color.Black
-                )
-            }
-        }
-
         // artists list
         items(artists) { artist ->
             ArtistItem(

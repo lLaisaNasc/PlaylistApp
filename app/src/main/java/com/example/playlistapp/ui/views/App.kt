@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -86,19 +87,28 @@ fun App(modifier: Modifier = Modifier) {
                 .background(Color.Transparent)
         ) {
             composable(route = AppScreens.Playlist.name) {
-                Playlist(navController = navController)
+                Playlist(viewModel = viewModel, navController = navController)
             }
             composable(route = AppScreens.ArtistListScreen.name) {
-                ArtistListScreen(navController = navController)
+                ArtistListScreen(viewModel = viewModel, navController = navController)
             }
             composable(route = AppScreens.ArtistDetailsScreen.name) {
-                ArtistDetailsScreen(artistWithSongs = artistWithSongs)
+                ArtistDetailsScreen(
+                    artistWithSongs = artistWithSongs, viewModel = viewModel,
+                    navController = navController,
+                )
+            }
+            composable(route = AppScreens.InsertArtist.name) {
+                InsertArtist(viewModel = viewModel, navController = navController)
             }
             composable(route = AppScreens.SongListScreen.name) {
-                SongListScreen(navController = navController)
+                SongListScreen(viewModel = viewModel, navController = navController)
             }
             composable(route = AppScreens.SongDetailsScreen.name) {
-                SongDetailsScreen(songWithArtists = songWithArtists)
+                SongDetailsScreen(
+                    songWithArtists = songWithArtists, viewModel = viewModel,
+                    navController = navController,
+                )
             }
             composable(route = AppScreens.InsertSong.name) {
                 InsertSong(viewModel = viewModel, navController = navController)
@@ -110,6 +120,8 @@ fun App(modifier: Modifier = Modifier) {
 @Composable
 fun SongDetailsScreen(
     modifier: Modifier = Modifier,
+    viewModel: PlaylistViewModel,
+    navController: NavController,
     songWithArtists: SongWithArtists
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
@@ -128,6 +140,8 @@ fun SongDetailsScreen(
 @Composable
 fun ArtistDetailsScreen(
     modifier: Modifier = Modifier,
+    viewModel: PlaylistViewModel,
+    navController: NavController,
     artistWithSongs: ArtistWithSongs,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
@@ -149,6 +163,7 @@ enum class AppScreens {
     Playlist,
     ArtistListScreen,
     ArtistDetailsScreen,
+    InsertArtist,
     SongListScreen,
     SongDetailsScreen,
     InsertSong,

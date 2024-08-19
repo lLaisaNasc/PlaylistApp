@@ -12,4 +12,6 @@
     <string name="artist">artists</string>
     <string name="artists">ARTISTS</string>
     <string name="songs">SONGS\n</string>
+    <string name="artistas">ARTISTAS</string>
+    <string name="insert_new_artist">INSERIR NOVO ARTISTA</string>
 </resources>

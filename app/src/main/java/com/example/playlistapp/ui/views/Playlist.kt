@@ -36,9 +36,9 @@ import kotlin.reflect.KFunction1
 @Composable
 fun Playlist(
     modifier: Modifier = Modifier,
+    viewModel: PlaylistViewModel,
     navController: NavController
 ) {
-    val viewModel: PlaylistViewModel = viewModel(factory = PlaylistViewModel.Factory)
 
     Column(modifier = Modifier.fillMaxSize()) {
         Card(
