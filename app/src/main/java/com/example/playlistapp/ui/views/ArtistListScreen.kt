@@ -94,11 +94,11 @@ fun ArtistItem(
         .fillMaxWidth()
         .padding(2.dp)
         .clickable {
-//            onArtistSelection(artist)
-//            viewModel.editArtist(artist)
-//            viewModel.navigateArtist(navController)
-            viewModel.selectArtist(artist)
-            viewModel.navigateArtistDetails(navController = navController)
+            onArtistSelection(artist)
+            viewModel.editArtist(artist)
+            viewModel.navigateArtist(navController)
+//            viewModel.selectArtist(artist)
+//            viewModel.navigateArtistDetails(navController = navController)
 
         }) {
         Row(

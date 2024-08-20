@@ -309,6 +309,7 @@ class PlaylistViewModel(
             R.string.insert_artist, R.string.update_artist -> navigateToArtistList(
                 navController
             )
+
             else -> navigateToArtistList(navController)
         }
     }
@@ -401,10 +402,15 @@ class PlaylistViewModel(
 
     }
 
+    fun editSong(song: Song) {
+        editSong = true
+        songToEdit = song
+    }
+
     fun navigateSong(navController: NavController) {
         when (appUIState.value.title) {
-            R.string.song_list -> navigateToSongList(navController)
-            R.string.insert_song, R.string.update_song -> navigateToInsertEditSong(navController)
+            R.string.songs -> navigateToInsertEditSong(navController)
+            R.string.insert_song, R.string.update_song -> navigateToSongList(navController)
             else -> navigateToSongList(navController)
         }
     }
@@ -430,7 +436,7 @@ class PlaylistViewModel(
                 )
             }
         }
-        navController.navigate("insert_edit_song")
+        navController.navigate(AppScreens.InsertSong.name)
     }
 
     private fun navigateToSongList(navController: NavController) {
@@ -477,6 +483,17 @@ class PlaylistViewModel(
             }
         }
 
+    }
+
+    fun navigateSongDetails(navController: NavController) {
+        _appUIState.update { currentState ->
+            currentState.copy(
+                title = R.string.song_details,
+                fabIcon = R.drawable.baseline_audiotrack_24,
+                iconContentDescription = R.string.confirm
+            )
+        }
+        navController.navigate(AppScreens.SongDetailsScreen.name)
     }
 
     fun navigateBack(navController: NavController) {

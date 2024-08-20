@@ -45,8 +45,6 @@ fun App(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val uiState by viewModel.appUIState.collectAsState()
 
-    val songWithArtists by viewModel.songWithArtists.collectAsState()
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -105,7 +103,7 @@ fun App(modifier: Modifier = Modifier) {
             }
             composable(route = AppScreens.SongDetailsScreen.name) {
                 SongDetailsScreen(
-                    songWithArtists = songWithArtists, viewModel = viewModel,
+                    viewModel = viewModel,
                     navController = navController,
                 )
             }
@@ -121,8 +119,9 @@ fun SongDetailsScreen(
     modifier: Modifier = Modifier,
     viewModel: PlaylistViewModel,
     navController: NavController,
-    songWithArtists: SongWithArtists
 ) {
+
+    val songWithArtists by viewModel.songWithArtists.collectAsState()
     Column(modifier = Modifier.fillMaxSize()) {
         Text(text = songWithArtists.song.title)
         Spacer(modifier = Modifier.height(5.dp))

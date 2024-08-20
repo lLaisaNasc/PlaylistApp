@@ -69,6 +69,7 @@ fun SongList(
         items(songs) { song ->
             SongItem(
                 modifier = modifier,
+                viewModel = viewModel,
                 navController = navController,
                 song = song,
                 onSongSelection = onSongSelection,
@@ -87,6 +88,7 @@ fun SongList(
 @Composable
 fun SongItem(
     modifier: Modifier = Modifier,
+    viewModel: PlaylistViewModel,
     navController: NavController,
     song: Song,
     onSongSelection: (Song) -> Unit,
@@ -97,8 +99,12 @@ fun SongItem(
         .fillMaxWidth()
         .padding(2.dp)
         .clickable {
-            onSongSelection(song)
-            onSongClick(navController)
+//            onSongSelection(song)
+//            viewModel.editSong(song)
+//            viewModel.navigateSong(navController)
+            viewModel.selectSong(song)
+            viewModel.navigateSongDetails(navController)
+
         }) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

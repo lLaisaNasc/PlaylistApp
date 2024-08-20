@@ -15,4 +15,5 @@
     <string name="artistas">ARTISTAS</string>
     <string name="insert_new_artist">INSERIR NOVO ARTISTA</string>
     <string name="artist_details">DETALHES ARTISTA</string>
+    <string name="song_details">DETALHES DA MÚSICA</string>
 </resources>
